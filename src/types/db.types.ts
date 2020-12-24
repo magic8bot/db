@@ -127,7 +127,7 @@ export type ExchangeCollection = ExchangeConfig & {}
 export interface StoreOpts {
   symbol: string
   exchange: string
-  strategy: string
+  strategy?: string
 }
 
 export interface StrategyConfig extends StoreOpts {
