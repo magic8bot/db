@@ -1,14 +1,9 @@
 import { dbDriver } from '../lib/db-driver.lib'
-import { Trade, StoreOpts } from '../types/db.types'
-
-import { chunkedMax, chunkedMin } from '../utils/math'
+import { StoreOpts, Marker } from '../types/db.types'
 
 export class MarkerModel {
-  public static async saveMarker(storeOpts: StoreOpts, to: number, from: number, trades: Trade[]) {
-    const marker = MarkerModel.makeMarker(storeOpts, to, from, trades)
-    await dbDriver.marker.insertOne(marker)
-
-    return marker
+  public static async saveMarker(marker: Marker) {
+    return dbDriver.marker.insertOne(marker)
   }
 
   public static async findLatestTradeMarker({ exchange, symbol }: StoreOpts) {
@@ -17,13 +12,7 @@ export class MarkerModel {
     return marker.pop()
   }
 
-  private static findInRange({ exchange, symbol }: StoreOpts, cursor: number) {
+  public static findInRange({ exchange, symbol }: StoreOpts, cursor: number) {
     return dbDriver.marker.findOne({ exchange, symbol, to: { $gte: cursor }, from: { $lte: cursor } })
-  }
-
-  private static makeMarker({ exchange, symbol }: StoreOpts, to: number, from: number, trades: Trade[]) {
-    const newestTime = chunkedMax(trades.map(({ timestamp }) => timestamp))
-    const oldestTime = chunkedMin(trades.map(({ timestamp }) => timestamp))
-    return { exchange, symbol, to, from, oldestTime, newestTime }
   }
 }
