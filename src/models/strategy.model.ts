@@ -1,7 +1,7 @@
 import { dbDriver } from '../lib/db-driver.lib'
 import { StoreOpts, StrategyConfig } from '../types/db.types'
 
-export class StrategyModl {
+export class StrategyModel {
   public static save(strategyConfig: StrategyConfig) {
     const { exchange, symbol, strategy, ...stratConf } = strategyConfig
     return dbDriver.strategy.updateOne({ exchange, symbol, strategy }, { $set: { ...stratConf } }, { upsert: true })
