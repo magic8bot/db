@@ -47,7 +47,6 @@ export interface Fee {
 }
 
 export interface SessionCollection {
-  sessionId: string
   startTime: number
   lastTime: number
 }
@@ -74,7 +73,6 @@ export type OrderWithTrades = Filter<Order, 'fee'> & {
 }
 
 export type OrderCollection = OrderWithTrades & {
-  sessionId: string
   strategy: string
   exchange: string
   symbol: string
@@ -86,7 +84,6 @@ export interface Wallet {
 }
 
 export type WalletCollection = Wallet & {
-  sessionId: string
   exchange: string
   symbol: string
   strategy: string
@@ -98,7 +95,6 @@ export type Adjustment = Wallet & {
 }
 
 export type AdjustmentCollection = Adjustment & {
-  sessionId: string
   exchange: string
   symbol: string
   strategy?: string
@@ -126,15 +122,16 @@ export interface ExchangeConfig {
   auth: ExchangeAuthentication
 }
 
-export type ExchangeCollection = ExchangeConfig & {
-  sessionId: string
-}
+export type ExchangeCollection = ExchangeConfig & {}
 
-export interface StrategyConfig {
-  [key: string]: string | number | boolean
+export interface StoreOpts {
   symbol: string
   exchange: string
   strategy: string
+}
+
+export interface StrategyConfig extends StoreOpts {
+  [key: string]: string | number | boolean
 
   days: number
   period: string
@@ -145,6 +142,4 @@ export interface StrategyConfig {
   orderSlippageAdjustmentTolerance: number
 }
 
-export type StrategyCollection = StrategyConfig & {
-  sessionId: string
-}
+export type StrategyCollection = StrategyConfig & {}

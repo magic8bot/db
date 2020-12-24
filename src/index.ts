@@ -1,5 +1,3 @@
-import { config } from 'dotenv'
-config()
-
-export * from './db.types'
-export * from './db-driver.lib'
+export * from './types/db.types'
+export * from './lib/db-driver.lib'
+export * from './models'
