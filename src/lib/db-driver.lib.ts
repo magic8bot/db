@@ -18,12 +18,16 @@ class DbDriver {
     this.db.init()
   }
 
-  get trade() {
-    return this.db.trade
+  get adjustment() {
+    return this.db.adjustment
   }
 
-  get session() {
-    return this.db.session
+  get exchange() {
+    return this.db.exchange
+  }
+
+  get internal() {
+    return this.db.internal
   }
 
   get marker() {
@@ -34,20 +38,16 @@ class DbDriver {
     return this.db.order
   }
 
-  get wallet() {
-    return this.db.wallet
-  }
-
-  get adjustment() {
-    return this.db.adjustment
-  }
-
-  get exchange() {
-    return this.db.exchange
-  }
-
   get strategy() {
     return this.db.strategy
+  }
+
+  get trade() {
+    return this.db.trade
+  }
+
+  get wallet() {
+    return this.db.wallet
   }
 }
 

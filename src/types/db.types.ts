@@ -46,11 +46,6 @@ export interface Fee {
   cost: number
 }
 
-export interface SessionCollection {
-  startTime: number
-  lastTime: number
-}
-
 export type TradeCollection = Trade & {
   exchange: string
   symbol: string
@@ -143,3 +138,8 @@ export interface StrategyConfig extends StoreOpts {
 }
 
 export type StrategyCollection = StrategyConfig & {}
+
+export interface InternalCollection {
+  name: string
+  type: string
+}

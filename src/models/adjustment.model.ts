@@ -1,5 +1,5 @@
-import { dbDriver, Adjustment } from '../'
-import { StoreOpts } from '../types/db.types'
+import { dbDriver } from '../lib/db-driver.lib'
+import { Adjustment, StoreOpts } from '../types/db.types'
 
 export class AdjustmentModel {
   public static adjustWallet(storeOpts: StoreOpts, adjustment: Adjustment) {

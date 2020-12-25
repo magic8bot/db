@@ -1,4 +1,5 @@
-import { dbDriver, ExchangeConfig } from '../'
+import { dbDriver } from '../lib/db-driver.lib'
+import { ExchangeConfig } from '../types/db.types'
 
 export class ExchangeModel {
   public static save(exchangeConfig: ExchangeConfig) {

@@ -1,5 +1,6 @@
 export * from './adjustment.model'
 export * from './exchange.model'
+export * from './internal.model'
 export * from './marker.model'
 export * from './order.model'
 export * from './strategy.model'

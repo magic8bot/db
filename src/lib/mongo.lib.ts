@@ -1,11 +1,11 @@
 import { MongoClient, Db, Collection } from 'mongodb'
 
 import {
+  InternalCollection,
   AdjustmentCollection,
   ExchangeCollection,
   Marker,
   OrderCollection,
-  SessionCollection,
   StrategyCollection,
   TradeCollection,
   WalletCollection,
@@ -16,9 +16,9 @@ export class MongoLib {
 
   private adjustmentCollection: Collection<AdjustmentCollection>
   private exchangeCollection: Collection<ExchangeCollection>
+  private internalCollection: Collection<InternalCollection>
   private markerCollection: Collection<Marker>
   private orderCollection: Collection<OrderCollection>
-  private sessionCollection: Collection<SessionCollection>
   private strategyCollection: Collection<StrategyCollection>
   private tradeCollection: Collection<TradeCollection>
   private walletCollection: Collection<WalletCollection>
@@ -32,9 +32,9 @@ export class MongoLib {
   public init() {
     this.adjustmentCollection = this.connection.collection('adjustments')
     this.exchangeCollection = this.connection.collection('exchanges')
+    this.internalCollection = this.connection.collection('internal')
     this.markerCollection = this.connection.collection('markers')
     this.orderCollection = this.connection.collection('orders')
-    this.sessionCollection = this.connection.collection('sessions')
     this.strategyCollection = this.connection.collection('strategies')
     this.tradeCollection = this.connection.collection('trades')
     this.walletCollection = this.connection.collection('wallets')
@@ -50,16 +50,16 @@ export class MongoLib {
     return this.exchangeCollection
   }
 
+  get internal() {
+    return this.internalCollection
+  }
+
   get marker() {
     return this.markerCollection
   }
 
   get order() {
     return this.orderCollection
-  }
-
-  get session() {
-    return this.sessionCollection
   }
 
   get strategy() {
@@ -75,6 +75,8 @@ export class MongoLib {
   }
 
   private createIndexes() {
+    this.internalCollection.createIndex({ name: 1 })
+
     this.adjustmentCollection.createIndex({ exchange: 1, symbol: 1, strategy: 1, timestamp: 1 })
 
     this.exchangeCollection.createIndex({ exchange: 1 })
