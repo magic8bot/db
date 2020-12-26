@@ -143,3 +143,16 @@ export interface InternalCollection {
   name: string
   type: string
 }
+
+export interface CandleCollection {
+  exchange: string
+  symbol: string
+  open: number
+  high: number
+  low: number
+  close: number
+  volume: number
+  trades: number
+  bucket: number
+  resolution: string
+}

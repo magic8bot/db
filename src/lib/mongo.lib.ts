@@ -1,9 +1,10 @@
 import { MongoClient, Db, Collection } from 'mongodb'
 
 import {
-  InternalCollection,
   AdjustmentCollection,
+  CandleCollection,
   ExchangeCollection,
+  InternalCollection,
   Marker,
   OrderCollection,
   StrategyCollection,
@@ -15,6 +16,7 @@ export class MongoLib {
   private connection: Db
 
   private adjustmentCollection: Collection<AdjustmentCollection>
+  private candleCollection: Collection<CandleCollection>
   private exchangeCollection: Collection<ExchangeCollection>
   private internalCollection: Collection<InternalCollection>
   private markerCollection: Collection<Marker>
@@ -31,6 +33,7 @@ export class MongoLib {
 
   public init() {
     this.adjustmentCollection = this.connection.collection('adjustments')
+    this.candleCollection = this.connection.collection('candles')
     this.exchangeCollection = this.connection.collection('exchanges')
     this.internalCollection = this.connection.collection('internal')
     this.markerCollection = this.connection.collection('markers')
@@ -44,6 +47,10 @@ export class MongoLib {
 
   get adjustment() {
     return this.adjustmentCollection
+  }
+
+  get candle() {
+    return this.candleCollection
   }
 
   get exchange() {
@@ -78,6 +85,9 @@ export class MongoLib {
     this.internalCollection.createIndex({ name: 1 })
 
     this.adjustmentCollection.createIndex({ exchange: 1, symbol: 1, strategy: 1, timestamp: 1 })
+
+    this.candleCollection.createIndex({ exchange: 1, symbol: 1, resolution: 1 })
+    this.candleCollection.createIndex({ exchange: 1, symbol: 1, resolution: 1, bucket: 1 })
 
     this.exchangeCollection.createIndex({ exchange: 1 })
 

@@ -22,6 +22,10 @@ class DbDriver {
     return this.db.adjustment
   }
 
+  get candle() {
+    return this.db.candle
+  }
+
   get exchange() {
     return this.db.exchange
   }
